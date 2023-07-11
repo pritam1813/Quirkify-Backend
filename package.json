@@ -1,0 +1,30 @@
+{
+  "name": "quirkify-backend",
+  "version": "1.0.0",
+  "description": "Quirkify is a simple social media app, where users can create profiles, post updates, comment on other posts, and chat with friends.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pritam1813/Quirkify-Backend.git"
+  },
+  "keywords": [
+    "Social",
+    "Media",
+    "Firebase",
+    "Node",
+    "js",
+    "Express",
+    "React"
+  ],
+  "author": "Pritam Dhara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pritam1813/Quirkify-Backend/issues"
+  },
+  "homepage": "https://github.com/pritam1813/Quirkify-Backend#readme"
+}
