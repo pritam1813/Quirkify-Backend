@@ -6,6 +6,6 @@ Router.get("/", (req, res) => {
 
 Router.use("/user", require("./users"));
 
-// Router.use("/post", require("./posts"));
+Router.use("/post", require("./posts"));
 
 module.exports = Router;
