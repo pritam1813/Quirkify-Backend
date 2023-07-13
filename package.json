@@ -26,5 +26,12 @@
   "bugs": {
     "url": "https://github.com/pritam1813/Quirkify-Backend/issues"
   },
-  "homepage": "https://github.com/pritam1813/Quirkify-Backend#readme"
+  "homepage": "https://github.com/pritam1813/Quirkify-Backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^10.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  }
 }
