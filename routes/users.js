@@ -1,19 +1,19 @@
-const Router = require("express").Router();
+const router = require("express").Router();
 const usercontroller = require("../controllers/userControllers");
 
-Router.get("/", (req, res) => {
+router.get("/", (req, res) => {
   return res.send("<h2>Hello</h2>");
 });
-Router.get("/profile", usercontroller.profile);
+router.get("/profile", usercontroller.profile);
 
-Router.post("/signup", usercontroller.createUser);
+router.post("/signup", usercontroller.createUser);
 
-Router.post("/login", usercontroller.login);
+router.post("/login", usercontroller.login);
 
-Router.put("/update", usercontroller.updateUser);
+router.put("/update", usercontroller.updateUser);
 
-Router.get("/signout", usercontroller.signout);
+router.get("/signout", usercontroller.signout);
 
-Router.delete("/delete", usercontroller.deleteUser);
+router.delete("/delete", usercontroller.deleteUser);
 
-module.exports = Router;
+module.exports = router;

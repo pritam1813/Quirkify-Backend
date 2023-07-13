@@ -5,7 +5,7 @@ module.exports.profile = async function (req, res) {
   try {
     const user = await auth.currentUser;
     if (user) {
-      return res.json(user);
+      return res.status(200).json(user);
     } else {
       return res.status(401).json("Unauthorized");
     }
@@ -56,7 +56,7 @@ module.exports.updateUser = async function (req, res) {
     const user = await auth.currentUser;
     if (user) {
       await user.updateProfile(req.query);
-      return res.json(user);
+      return res.status(200).json(user);
     } else {
       return res.status(401).json("Unauthorized");
     }
@@ -70,7 +70,7 @@ module.exports.updateUser = async function (req, res) {
 module.exports.signout = async function (req, res) {
   try {
     const userSignOut = await signOut;
-    return res.json(userSignOut);
+    return res.status(200).json(userSignOut);
   } catch (error) {
     res
       .status(500)
@@ -84,7 +84,7 @@ module.exports.deleteUser = async function (req, res) {
     console.log(user);
     if (user) {
       const deleteuser = await user.delete();
-      return res.json(deleteuser);
+      return res.status(200).json(deleteuser);
     } else {
       return res.status(403).json("Invalid Request");
     }

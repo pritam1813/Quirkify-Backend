@@ -6,9 +6,11 @@ module.exports.create = async function (req, res) {
     const user = await auth.currentUser;
     if (user) {
       const userId = user.uid;
+      const name = user.displayName;
       const { title, content } = req.body;
       const postRef = firestore.collection("posts").doc();
       await postRef.set({
+        name,
         title,
         content,
         user: userId,
@@ -29,7 +31,11 @@ module.exports.create = async function (req, res) {
 module.exports.allPosts = async function (req, res) {
   try {
     const snapshot = await firestore.collection("posts").get();
-    return res.json(snapshot.docs.map((doc) => doc.data()));
+    return res.status(200).json(
+      snapshot.docs.map((doc) => {
+        return doc.data();
+      })
+    );
   } catch (error) {
     res
       .status(500)
