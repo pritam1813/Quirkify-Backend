@@ -40,14 +40,25 @@ module.exports.createUser = async function (req, res) {
 
 module.exports.login = async function (req, res) {
   try {
-    const { email, password } = req.query;
+    const { email, password } = req.body;
     const userLogin = await auth.signInWithEmailAndPassword(email, password);
     const jwt = await userLogin.user.getIdToken();
-    return res.status(200).json({ userLogin: userLogin.user, token: jwt });
+    return res.status(200).json({
+      success: true,
+      user: userLogin.user,
+      token: jwt,
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({ errorCode: error.code, errorMessage: error.message });
+    let errorCode = error.code.replace("auth/", "");
+    let errorMessage = error.message
+      .replace("Firebase:", "")
+      .replace(/\(.*\)/, "")
+      .trim();
+    return res.status(500).json({
+      error: true,
+      errorCode,
+      message: errorMessage,
+    });
   }
 };
 

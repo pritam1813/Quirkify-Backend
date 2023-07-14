@@ -5,15 +5,18 @@ module.exports.create = async function (req, res) {
     console.log(req.body);
     const user = await auth.currentUser;
     if (user) {
-      const userId = user.uid;
+      const avatar = user.photoURL;
       const name = user.displayName;
       const { title, content } = req.body;
-      const postRef = firestore.collection("posts").doc();
+      const postRef = await firestore.collection("posts").doc();
       await postRef.set({
-        name,
+        id: postRef.id,
         title,
         content,
-        user: userId,
+        user: {
+          name,
+          avatar,
+        },
         comments: [],
         likes: [],
       });
