@@ -18,23 +18,35 @@ module.exports.profile = async function (req, res) {
 
 module.exports.createUser = async function (req, res) {
   try {
-    const { email, password } = req.query;
+    const { firstName, lastName, email, password } = req.body;
     const userAdded = await auth.createUserWithEmailAndPassword(
       email,
       password
     );
-
+    const name = firstName + lastName;
     await userAdded.user.updateProfile({
-      displayName: req.query.name,
+      displayName: name,
       photoURL: process.env.DEFAULT_AVATAR_URL,
     });
+    const jwt = await userAdded.user.getIdToken();
     // const userRef = firestore.collection("users").doc(userAdded.user.uid);
     // await userRef.set(userData);
-    return res.json(userAdded);
+    return res.status(200).json({
+      success: true,
+      user: userAdded.user,
+      token: jwt,
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({ errorCode: error.code, errorMessage: error.message });
+    let errorCode = error.code.replace("auth/", "");
+    let errorMessage = error.message
+      .replace("Firebase:", "")
+      .replace(/\(.*\)/, "")
+      .trim();
+    return res.status(500).json({
+      error: true,
+      errorCode,
+      message: errorMessage,
+    });
   }
 };
 
