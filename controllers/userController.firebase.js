@@ -16,7 +16,7 @@ module.exports.profile = async function (req, res) {
   }
 };
 
-module.exports.createUser = async function (req, res) {
+module.exports.signup = async function (req, res) {
   try {
     const { firstName, lastName, email, password } = req.body;
     const userAdded = await auth.createUserWithEmailAndPassword(
@@ -55,6 +55,7 @@ module.exports.login = async function (req, res) {
     const { email, password } = req.body;
     const userLogin = await auth.signInWithEmailAndPassword(email, password);
     const jwt = await userLogin.user.getIdToken();
+    console.log("JWT: ", jwt);
     return res.status(200).json({
       success: true,
       user: userLogin.user,
@@ -76,7 +77,7 @@ module.exports.login = async function (req, res) {
 
 module.exports.updateUser = async function (req, res) {
   try {
-    const user = await auth.currentUser;
+    const { name, email, password } = req.body;
     if (user) {
       await user.updateProfile(req.query);
       return res.status(200).json(user);
